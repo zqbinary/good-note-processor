@@ -1,3 +1,5 @@
 pyperclip
 Flask
 keyboard
+beautifulsoup4
+requests
