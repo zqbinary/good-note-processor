@@ -1,5 +1,6 @@
 pyperclip
 Flask
+Flask-CORS
 keyboard
 beautifulsoup4
 requests
