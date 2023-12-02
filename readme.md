@@ -23,17 +23,24 @@ get localhost:7826/out,就可以看到结果，该结果图片已经下到本地
 | CSDN | blog.csdn.net    | [https://blog.csdn.net/csdnnews/article/details/134566191?spm=1000.2115.3001.5926](https://blog.csdn.net/csdnnews/article/details/134566191?spm=1000.2115.3001.5926) |
 | 思否   | segmentfault.com | https://segmentfault.com/a/1190000044421775                                                                                                                          |
 | 掘金   | juejin.cn        | https://juejin.cn/post/6909379124679311368                                                                                                                           |
-其他
-* 腾讯云 https://cloud.tencent.com/developer/article/2219258
-* 51cto https://blog.51cto.com/u_16160587/8658288
+
+ect. 腾讯云.51cto
+
+## 支持不同的code preview
+
+| repository    | keyword     | example                                                 |
+|---------------|-------------|---------------------------------------------------------|
+| hightlight.js | hljs        | https://blog.51cto.com/u_16160587/8658288               |
+| prism         | prism-token | 腾讯云 https://cloud.tencent.com/developer/article/2219258 |
+
 # 计划
 
-* 一键识别主体内容发送
-* 单元测试，保证ocr格式，各个demo正确
-* 单元测试，保证图片识别，各个demo正确
-* 定期去掉图片
-* ？写个引擎，不同网站不同规则
-* 处理md
-* 无头浏览器或者其他方案一键复制
-* 直接生成印象笔记，我特有的笔记模板的样子
-* 代码格式化
+-[ ] 一键识别主体内容发送
+-[ ]  单元测试，保证ocr格式，各个demo正确
+-[ ] 单元测试，保证图片识别，各个demo正确
+-[ ] 定期去掉图片
+-[ ] ？写个引擎，不同网站不同规则
+-[ ] 处理md
+-[ ] 无头浏览器或者其他方案一键复制
+-[ ] 直接生成印象笔记，我特有的笔记模板的样子
+-[ ] 代码格式化
