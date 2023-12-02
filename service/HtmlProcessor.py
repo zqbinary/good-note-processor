@@ -1,4 +1,5 @@
 import json
+import re
 import time
 from urllib.parse import urlparse
 
@@ -89,7 +90,11 @@ class HtmlProcessor:
 
     def save_out_html(self):
         with open(self.output_file, 'w', encoding='utf-8') as file:
-            file.write(self.soup.prettify())
+            res = str(self.soup)
+            # 去掉空行
+            pattern = re.compile(r'^\s*$\n?', flags=re.MULTILINE)
+            res = pattern.sub('', res)
+            file.write(res)
         print("处理后的 HTML 内容已保存到 {} 文件".format(self.output_file))
 
     def download_images(self):

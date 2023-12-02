@@ -46,3 +46,14 @@ class TestHtmlProcessor(TestCase):
         processor = HtmlProcessor('file')
         processor.do()
         self.assertTrue(True)
+
+    def test_prism(self):
+        case_name = 'prism'
+        data_file = self.gen_test_file_path(case_name, 'data.json')
+        origin_file = self.gen_test_file_path(case_name, 'origin.html')
+        out_file = self.gen_test_file_path(case_name, 'out.html')
+        HtmlProcessor.set_root(self.current_directory)
+        HtmlProcessor.set_file_dir(data_file, origin_file, out_file)
+        processor = HtmlProcessor('file')
+        processor.do()
+        self.assertTrue(True)
