@@ -25,6 +25,7 @@ get localhost:7826/out,就可以看到结果，该结果图片已经下到本地
 | 掘金   | juejin.cn        | https://juejin.cn/post/6909379124679311368                                                                                                                           |
 其他
 * 腾讯云 https://cloud.tencent.com/developer/article/2219258
+* 51cto https://blog.51cto.com/u_16160587/8658288
 # 计划
 
 * 一键识别主体内容发送
