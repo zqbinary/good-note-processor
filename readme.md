@@ -23,7 +23,8 @@ get localhost:7826/out,就可以看到结果，该结果图片已经下到本地
 | CSDN | blog.csdn.net    | [https://blog.csdn.net/csdnnews/article/details/134566191?spm=1000.2115.3001.5926](https://blog.csdn.net/csdnnews/article/details/134566191?spm=1000.2115.3001.5926) |
 | 思否   | segmentfault.com | https://segmentfault.com/a/1190000044421775                                                                                                                          |
 | 掘金   | juejin.cn        | https://juejin.cn/post/6909379124679311368                                                                                                                           |
-
+其他
+* 腾讯云 https://cloud.tencent.com/developer/article/2219258
 # 计划
 
 * 一键识别主体内容发送
@@ -34,3 +35,4 @@ get localhost:7826/out,就可以看到结果，该结果图片已经下到本地
 * 处理md
 * 无头浏览器或者其他方案一键复制
 * 直接生成印象笔记，我特有的笔记模板的样子
+* 代码格式化

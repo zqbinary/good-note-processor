@@ -63,6 +63,13 @@ class HtmlProcessor:
             <head>
                 <meta charset="UTF-8">
                 <title>Copy Copy</title>
+                  <!-- 引入 Prism.js 的 CSS 样式 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+
+  <!-- 引入 Prism.js 的 JavaScript 文件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+  <!-- 这里可以添加其他语言的扩展，比如对应语言的 JavaScript 文件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
                 <link rel="stylesheet" href="/static/zq-css/zq-main.css?t={}">
             </head>
             <body>
