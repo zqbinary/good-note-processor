@@ -8,6 +8,10 @@
 
 ocr识别结果，且不说准确性，换行总是处理不好，如果选择取出换行，就会误伤一些，如果不去掉换行，又看了难受。所以想了一个方案，算出行的字数，在这个字数左右的行就去掉换行符号。
 
+## todo
+
+用ai过一下ocr内容
+
 使用： 我使用的是utools, 截图ocr并复制，接下来是py的事。py监听快捷键 alt+b,监听到，就取出处理再放入剪贴板。
 
 ## 网页图片，内容，格式处理
@@ -23,8 +27,11 @@ get localhost:7826/out,就可以看到结果，该结果图片已经下到本地
 | CSDN | blog.csdn.net    | [https://blog.csdn.net/csdnnews/article/details/134566191?spm=1000.2115.3001.5926](https://blog.csdn.net/csdnnews/article/details/134566191?spm=1000.2115.3001.5926) |
 | 思否   | segmentfault.com | https://segmentfault.com/a/1190000044421775                                                                                                                          |
 | 掘金   | juejin.cn        | https://juejin.cn/post/6909379124679311368                                                                                                                           |
+
 其他
+
 * 腾讯云 https://cloud.tencent.com/developer/article/2219258
+
 # 计划
 
 * 一键识别主体内容发送
