@@ -5,7 +5,7 @@ import pyperclip
 class TextProcessor:
     # 频率最高的偏差
     abs_value = 8
-    line_min_count = 10
+    line_min_count = 30
 
     def __init__(self, typ='clipboard', text=''):
         self.typ = typ
@@ -66,10 +66,13 @@ class TextProcessor:
         return char_count
 
     def most_common_count(self, chinese_counts):
+        chinese_counts = [num for num in chinese_counts if num > self.line_min_count]
         count_freq = Counter(chinese_counts)
         most_common = count_freq.most_common(1)
-
-        return most_common[0][0]
+        if most_common and most_common[0][1] == 1:
+            return sum(chinese_counts) / len(chinese_counts)
+        else:
+            return most_common[0][0]
 
     def read_clipboard_content(self):
         clipboard_content = pyperclip.paste()

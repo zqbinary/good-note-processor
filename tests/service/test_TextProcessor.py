@@ -45,3 +45,21 @@ mixed-content(混合内容：显示所有混合内容资源(mixed-content:all)�
         processor = TextProcessor('input', text)
         processor.action()
         self.assertTrue(True)
+
+    def test_action2(self):
+        text = """
+        什么是Base64
+定义：
+Base64是一种基于64个可打印字符来表示二进制数据的表示方法。由于2^6=64，所以每6个比特为一个单元，
+对应某个可打印字符.3个字节(8位)有24个比特，对应于4个Base64单元，即3个字节可由4个可打印字符来表示.
+它可用来作为电子邮件的传输编码。在Base64中的可打印字符包括字母A-Z、a-z、数字0-9，这样共有62个字
+符，此外两个可打印符号在不同的系统中而不同。
+场景
+BaSe64常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据，包括MME的电子邮件及XML的
+一些复杂数据。
+        """
+
+        print(text)
+        processor = TextProcessor('input', text)
+        processor.action()
+        self.assertTrue(True)
