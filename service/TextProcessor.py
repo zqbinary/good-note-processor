@@ -1,11 +1,12 @@
 from collections import Counter
 import pyperclip
+import statistics
 
 
 class TextProcessor:
     # 频率最高的偏差
-    abs_value = 8
-    line_min_count = 30
+    abs_value = 10
+    line_min_count = 20
 
     def __init__(self, typ='clipboard', text=''):
         self.typ = typ
@@ -18,8 +19,8 @@ class TextProcessor:
     def action(self):
         # 示例文本
         chinese_counts = self.count_char()
-        most_common = self.most_common_count(chinese_counts)
         print("每行中文字数统计：", chinese_counts)
+        most_common = self.most_common_count(chinese_counts)
         print("频率最高的字数是：", most_common)
         processed_text = self.merge_lines_with_difference(most_common)
         print("<------------------")
@@ -65,14 +66,16 @@ class TextProcessor:
 
         return char_count
 
-    def most_common_count(self, chinese_counts):
-        chinese_counts = [num for num in chinese_counts if num > self.line_min_count]
-        count_freq = Counter(chinese_counts)
-        most_common = count_freq.most_common(1)
-        if most_common and most_common[0][1] == 1:
-            return sum(chinese_counts) / len(chinese_counts)
-        else:
-            return most_common[0][0]
+    def most_common_count(self, line_counts):
+        line_counts = [num for num in line_counts if num > self.line_min_count]
+        if not len(line_counts):
+            return self.line_min_count
+        print("行字数：", line_counts)
+        c1 = sum(line_counts) / len(line_counts)
+        c2 = statistics.median(line_counts)
+        print("平均数：", c1)
+        print("中位数：", c2)
+        return (c1 + c2) / 2
 
     def read_clipboard_content(self):
         clipboard_content = pyperclip.paste()

@@ -63,3 +63,18 @@ BaSe64常用于在通常处理文本数据的场合，表示、传输、存储�
         processor = TextProcessor('input', text)
         processor.action()
         self.assertTrue(True)
+    def test_action3(self):
+        text = """
+解读
+高级加密标准（英语：Advanced Encryption Standard,缩写：AES),在密码学中又称Rijndael加密
+法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES,已经被多方分析且广
+为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院(NIST)于2001
+年11月26日发布于F1 PS PUB197,并在2002年5月26日成为有效的标准。2006年，高级加密标准已
+然成为对称密钥加密中最流行的算法之一。
+该算法为比利时密码学家Joan Daemen和Vincent Rijmen.所设计，结合两位作者的名字，以Rijndael为
+名投稿高级加密标准的甄选流程。(Riindaeli的发音近于"Rhine doll")
+        """
+        print(text)
+        processor = TextProcessor('input', text)
+        processor.action()
+        self.assertTrue(True)
