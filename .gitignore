@@ -161,4 +161,5 @@ cython_debug/
 templates/*
 static/*
 !static/zq-css/
+!static/favicon.ico
 .idea

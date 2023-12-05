@@ -65,7 +65,9 @@ class HtmlProcessor:
                 <meta charset="UTF-8">
                 <title>Copy Copy</title>
                   <!-- 引入 Prism.js 的 CSS 样式 -->
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+
 
   <!-- 引入 Prism.js 的 JavaScript 文件 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
