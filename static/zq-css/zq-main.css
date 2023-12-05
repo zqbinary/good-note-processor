@@ -1,0 +1,38 @@
+* {
+    margin: 0 0 !important;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+}
+
+.zq-main {
+    width: 800px;
+}
+
+.zq-main img {
+    max-width: 100%;
+    min-width: 80%;
+}
+
+.zq-main svg {
+    display: none;
+}
+
+.zq-main p {
+    margin: 0 0 !important;
+}
+
+li {
+    list-style-type: none;
+    text-align: left;
+}
+
+.line-numbers-rows {
+    display: none;
+}
+
+.pre-numbering {
+    display: none;
+}
