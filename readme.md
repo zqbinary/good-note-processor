@@ -28,8 +28,7 @@ get localhost:7826/out,就可以看到结果，该结果图片已经下到本地
 | 思否   | segmentfault.com | https://segmentfault.com/a/1190000044421775                                                                                                                          |
 | 掘金   | juejin.cn        | https://juejin.cn/post/6909379124679311368                                                                                                                           |
 
-<<<<<<< HEAD
-ect. 腾讯云.51cto
+ect.: 腾讯云,51cto
 
 ## 支持不同的code preview
 
@@ -37,11 +36,8 @@ ect. 腾讯云.51cto
 |---------------|-------------|---------------------------------------------------------|
 | hightlight.js | hljs        | https://blog.51cto.com/u_16160587/8658288               |
 | prism         | prism-token | 腾讯云 https://cloud.tencent.com/developer/article/2219258 |
-=======
 其他
-
 * 腾讯云 https://cloud.tencent.com/developer/article/2219258
->>>>>>> 9c4961b0344a515413e3e559a16c3ff39efa36a3
 
 # 计划
 
