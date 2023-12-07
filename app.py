@@ -2,10 +2,11 @@ from flask import Flask, render_template, request
 from flask_cors import CORS
 
 from service.HtmlProcessor import HtmlProcessor
-from service.KeyListener import KeyListener
 
 app = Flask(__name__)
 CORS(app)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.jinja_env.auto_reload = True
 
 
 @app.route('/')
@@ -42,4 +43,4 @@ def add_header(response):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=7826)
+    app.run(port=7826, debug=True)

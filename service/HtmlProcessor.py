@@ -73,7 +73,7 @@ class HtmlProcessor:
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
   <!-- 这里可以添加其他语言的扩展，比如对应语言的 JavaScript 文件 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
-                <link rel="stylesheet" href="/static/zq-css/zq-main.css?t={}">
+                <link rel="stylesheet" href="/static/zq-css/zq-main.css?t={}"></link>
             </head>
             <body>
             <div class="zq-main">
@@ -93,10 +93,13 @@ class HtmlProcessor:
     def save_out_html(self):
         with open(self.output_file, 'w', encoding='utf-8') as file:
             res = str(self.soup)
-            # 去掉空行
-            pattern = re.compile(r'^\s*$\n?', flags=re.MULTILINE)
-            res = pattern.sub('', res)
             file.write(res)
+        # 去掉空行
+        with open(self.output_file, 'r', encoding='utf-8') as file:
+            content = file.read()
+            with open(self.output_file, 'w', encoding='utf-8') as f2:
+                res = re.sub(r'\n\n', r'\n', content)
+                f2.write(res)
         print("处理后的 HTML 内容已保存到 {} 文件".format(self.output_file))
 
     def download_images(self):

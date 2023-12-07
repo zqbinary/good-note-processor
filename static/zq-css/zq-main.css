@@ -33,6 +33,6 @@ li {
     display: none;
 }
 
-.pre-numbering {
+.pre-numbering, .docsify-copy-code-button {
     display: none;
 }
