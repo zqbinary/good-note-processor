@@ -58,22 +58,21 @@ class HtmlProcessor:
 
     def gen_html(self, origin_html):
         html = ""
-        html += """
+        html += r"""
         <!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
                 <title>Copy Copy</title>
                   <!-- 引入 Prism.js 的 CSS 样式 -->
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+                <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+                <link href="/static/zq-css/zq-main.css?t={}" rel="stylesheet" />
 
-
-  <!-- 引入 Prism.js 的 JavaScript 文件 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
-  <!-- 这里可以添加其他语言的扩展，比如对应语言的 JavaScript 文件 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
-                <link rel="stylesheet" href="/static/zq-css/zq-main.css?t={}"></link>
+                <!-- 引入 Prism.js 的 JavaScript 文件 -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+                <!-- 这里可以添加其他语言的扩展，比如对应语言的 JavaScript 文件 -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
             </head>
             <body>
             <div class="zq-main">
@@ -95,12 +94,17 @@ class HtmlProcessor:
             res = str(self.soup)
             file.write(res)
         # 去掉空行
-        with open(self.output_file, 'r', encoding='utf-8') as file:
-            content = file.read()
-            with open(self.output_file, 'w', encoding='utf-8') as f2:
-                res = re.sub(r'\n\n', r'\n', content)
-                f2.write(res)
+
+        self.remove_empty_line()
         print("处理后的 HTML 内容已保存到 {} 文件".format(self.output_file))
+
+    def remove_empty_line(self):
+        with open(self.output_file, 'r', encoding='utf-8') as file:
+            res = file.read()
+            with open(self.output_file, 'w', encoding='utf-8') as f2:
+                res = re.sub(r'\n\n', r'\n', res)
+                res = re.sub(r'\n\n', r'\n', res)
+                f2.write(res)
 
     def download_images(self):
         images = self.soup.find_all('img')
