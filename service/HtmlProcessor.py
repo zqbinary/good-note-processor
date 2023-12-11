@@ -129,16 +129,14 @@ class HtmlProcessor:
         image_format = 'png'
         if content_type:
             image_format = content_type.split('/')[-1]  # 获取 Content-Type 中的格式部分
-        # filename = os.path.basename(image_url)
-
-        # image_name_without_extension, image_extension = os.path.splitext(filename)
-        # if not image_extension:
         image_extension = image_format
-        # if image_extension.startswith('.'):
-        #     image_extension = image_format[1:]
         return os.path.join('p' + str(idx) + '.' + image_extension)
 
     def format_html(self):
+        self.format_imgs()
+        self.format_code_pres()
+
+    def format_imgs(self):
         images = self.soup.find_all('img')
         for img in images:
             img_url = img.get('src')
@@ -146,12 +144,15 @@ class HtmlProcessor:
                 img['src'] = self.location['origin'] + img_url
                 print(img)
 
+    def format_code_pres(self):
         pres = self.soup.find_all('pre')
         for pre_tag in pres:
             # 获取pre标签的文本内容
             pre_text = pre_tag.get_text()
-            pre_text_with_nbsp = re.sub(r'^( +)', lambda match: '\u00A0' * len(match.group(1)), pre_text,
-                                        flags=re.MULTILINE)
+            pre_text_with_nbsp = re.sub(r'^( +)'
+                                        , lambda match: '\u00A0' * len(match.group(1))
+                                        , pre_text
+                                        , flags=re.MULTILINE)
             pre_text = pre_text_with_nbsp
             # 按行分割文本内容
             lines = pre_text.splitlines()
@@ -165,8 +166,5 @@ class HtmlProcessor:
                 line_div.string = line
                 new_div.append(line_div)
 
-            # 用新的div标签替换原始的pre标签
             pre_tag.replace_with(new_div)
-
-            # 将修改后的文本重新赋值给pre标签
-            # pre_tag.string = pre_text_with_nbsp
+            # pre_tag.string = new_div.decode_contents()
