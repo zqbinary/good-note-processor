@@ -1,11 +1,11 @@
 import json
 import re
 import time
-from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 import requests
 import os
+from service.Notification import notify
 
 
 class HtmlProcessor:
@@ -51,6 +51,7 @@ class HtmlProcessor:
             self.save_origin_html()
 
         self.save_out_html()
+        notify()
 
     def read_html_file(self):
         with open(self.origin_file, 'r', encoding='utf-8') as file:
@@ -144,3 +145,28 @@ class HtmlProcessor:
             if img_url.startswith('/'):
                 img['src'] = self.location['origin'] + img_url
                 print(img)
+
+        pres = self.soup.find_all('pre')
+        for pre_tag in pres:
+            # 获取pre标签的文本内容
+            pre_text = pre_tag.get_text()
+            pre_text_with_nbsp = re.sub(r'^( +)', lambda match: '\u00A0' * len(match.group(1)), pre_text,
+                                        flags=re.MULTILINE)
+            pre_text = pre_text_with_nbsp
+            # 按行分割文本内容
+            lines = pre_text.splitlines()
+
+            # 创建一个新的div标签用于替换pre标签
+            new_div = self.soup.new_tag('div')
+
+            # 将每行文本放入一个单独的div中，并添加到新的div标签中
+            for line in lines:
+                line_div = self.soup.new_tag('div')
+                line_div.string = line
+                new_div.append(line_div)
+
+            # 用新的div标签替换原始的pre标签
+            pre_tag.replace_with(new_div)
+
+            # 将修改后的文本重新赋值给pre标签
+            # pre_tag.string = pre_text_with_nbsp

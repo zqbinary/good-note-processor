@@ -33,6 +33,7 @@ li {
     display: none;
 }
 
-.pre-numbering, .docsify-copy-code-button {
-    display: none;
+/*hljs*/
+.pre-numbering, .docsify-copy-code-button, .widget-codetool {
+    display: none !important;
 }

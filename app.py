@@ -16,7 +16,7 @@ def index():
 
 @app.route('/test/<param>')
 def test_show(param):
-    return render_template(f'./tests/{param}/out.html')
+    return render_template(f'/tests/{param}/out.html')
 
 
 @app.route('/out')
