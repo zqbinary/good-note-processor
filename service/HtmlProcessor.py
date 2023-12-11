@@ -158,13 +158,16 @@ class HtmlProcessor:
             lines = pre_text.splitlines()
 
             # 创建一个新的div标签用于替换pre标签
-            new_div = self.soup.new_tag('div')
+            new_div = self.soup.new_tag('pre')
 
+            new_div['class'] = pre_tag.get('class')
             # 将每行文本放入一个单独的div中，并添加到新的div标签中
             for line in lines:
                 line_div = self.soup.new_tag('div')
                 line_div.string = line
                 new_div.append(line_div)
-
             pre_tag.replace_with(new_div)
-            # pre_tag.string = new_div.decode_contents()
+
+            new_div.insert_before(self.soup.new_tag('br'))
+            new_div.insert_after(self.soup.new_tag('br'))
+            # pre_tag.string = new_div.get_text()
