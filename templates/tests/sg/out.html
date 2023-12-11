@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Copy Copy</title>
+<link href="/static/zq-css/zq-main.css?t=1701511006.1255507" rel="stylesheet"/>
+</head>
+<body>
+<div class="zq-main">
+<div class="ratio ratio-21x9 mb-4"><img alt="头图" class="card-img-top w-100 h-100" src="/static/p0.png"/>
+</div>
+<div class="OA_holder" id="OA_holder_25" style="display:none"></div>
+<article class="article fmt article-content"><p>你好呀，我是歪歪。</p>
+<p>关于 RPC 调用，大家肯定都是比较熟悉的了，就是在微服务架构下解决系统间通信问题的一个玩意。</p>
+<p>其中的典型代表之一就是 Dubbo 了：</p>
+<p><img alt="" referrerpolicy="no-referrer" src="/static/p1.png" title=""/></p>
+<p>在微服务架构下，我们针对某个 RPC 接口，我们一般有两个角色。</p>
+<ul>
+<li>服务消费者 (Dubbo Consumer)，发起业务调用或 RPC 通信的 Dubbo 进程</li>
+<li>服务提供者 (Dubbo Provider)，接收业务调用或 RPC 通信的 Dubbo 进程</li>
+</ul>
+<p>假设我是服务消费者，想要调用某个服务，只要我们链接到的是同一个服务注册中心，那么找对应服务要到 API 包对应的
+            Maven 坐标，引入到项目中，就类似于这样的东西：</p>
+<div class="widget-codetool" style="display: block;">
+<div class="widget-codetool--inner">
+<button aria-label="复制" class="btn btn-dark rounded-0 sflex-center copyCode" data-bs-original-title="复制" data-clipboard-text="&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.dubbo&lt;/groupId&gt;
+    &lt;artifactId&gt;dubbo-spring-boot-demo-interface&lt;/artifactId&gt;
+    &lt;version&gt;${project.parent.version}&lt;/version&gt;
+&lt;/dependency&gt;" data-placement="top" data-toggle="tooltip" type="button">
+<i class="far fa-copy"></i>
+</button>
+</div>
+</div>
+<pre class="hljs language-dust"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.dubbo<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>dubbo-spring-boot-demo-interface<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$</span><span class="hljs-template-variable">{project.parent.version}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></span></pre>
+<p>那么对于这个 API
+            包中的接口，虽然我们没有具体的实现类，但是我们还是能像调用本地方法一样调用该服务提供的接口。</p></article>
+</div>
+</body>
+</html>

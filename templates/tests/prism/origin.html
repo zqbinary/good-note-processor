@@ -1,0 +1,46 @@
+
+        <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>Copy Copy</title>
+                  <!-- 引入 Prism.js 的 CSS 样式 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+
+  <!-- 引入 Prism.js 的 JavaScript 文件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+  <!-- 这里可以添加其他语言的扩展，比如对应语言的 JavaScript 文件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
+                <link rel="stylesheet" href="/static/zq-css/zq-main.css?t=1701513101.6792872">
+            </head>
+            <body>
+            <div class="zq-main">
+        <ol class="ol-level-0"><li>在 settings 的&nbsp;CKEDITOR_CONFIGS 里的 extraPlugins 对应的 value 里加入插件 'prism' 和 另外两个插件："lineutils"、"widget"（这两个插件无须下载，在 django-ckeditor 中已经有了）</li></ol><div class="developer-code-block"><pre class="prism-token token line-numbers language-javascript" tabindex="0"><code class="language-javascript" style="margin-left: 0px;"># ckeditor configs
+
+<span class="token constant">CKEDITOR_CONFIGS</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+
+    <span class="token string-property property">'language'</span><span class="token operator">:</span> <span class="token string">'zh-cn'</span><span class="token punctuation">,</span>
+
+    <span class="token string-property property">'awesome_ckeditor'</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+
+        <span class="token string-property property">'toolbar'</span><span class="token operator">:</span> <span class="token string">'full'</span><span class="token punctuation">,</span>
+
+        <span class="token string-property property">'width'</span><span class="token operator">:</span> <span class="token string">'auto'</span><span class="token punctuation">,</span>
+
+        <span class="token string-property property">'height'</span><span class="token operator">:</span> <span class="token string">'480px'</span><span class="token punctuation">,</span>
+
+        <span class="token string-property property">'tabSpaces'</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+
+        # 插件
+
+        # prism：代码高亮、代码行数
+
+        # uploadimage：允许用户直接在编辑器里粘贴（ctrl <span class="token operator">+</span> v）图片
+
+        # codesnippet：添加代码块的功能
+
+        <span class="token string-property property">'extraPlugins'</span><span class="token operator">:</span> <span class="token string">','</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'codesnippet'</span><span class="token punctuation">,</span> <span class="token string">'uploadimage'</span><span class="token punctuation">,</span> <span class="token string">'prism'</span><span class="token punctuation">,</span> <span class="token string">'widget'</span><span class="token punctuation">,</span> <span class="token string">'lineutils'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+<span class="token punctuation">}</span></code></pre></div></div></body></html>
