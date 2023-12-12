@@ -81,9 +81,6 @@ class HtmlProcessor:
         html += "</div></body></html>"
         return html
 
-    def format_origin_html(self, origin_html):
-        pass
-
     def save_origin_html(self):
         with open(self.origin_file, 'w', encoding='utf-8') as file:
             file.write(self.html_content)
@@ -93,8 +90,6 @@ class HtmlProcessor:
         with open(self.output_file, 'w', encoding='utf-8') as file:
             res = str(self.soup)
             file.write(res)
-        # 去掉空行
-
         self.remove_empty_line()
         print("处理后的 HTML 内容已保存到 {} 文件".format(self.output_file))
 
@@ -123,7 +118,8 @@ class HtmlProcessor:
 
             img['src'] = '/static/' + filename
 
-    def get_img_filename(self, idx, image_url, content_type):
+    @classmethod
+    def get_img_filename(cls, idx, image_url, content_type):
         # 获取 Content-Type 头部信息
         image_format = 'png'
         if content_type:
@@ -166,7 +162,6 @@ class HtmlProcessor:
             # 按行分割文本内容
             lines = pre_text.splitlines()
 
-            # 创建一个新的div标签用于替换pre标签
             pre_new = self.soup.new_tag('div')
 
             # new_div['class'] = pre_tag.get('class')

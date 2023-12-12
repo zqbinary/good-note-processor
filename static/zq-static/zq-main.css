@@ -18,6 +18,7 @@ h1, h2, h3 {
 
 .zq-main {
     width: 800px;
+    margin: 0 auto;
 }
 
 .zq-main img {
