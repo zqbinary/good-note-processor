@@ -70,7 +70,7 @@ class HtmlProcessor:
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
-                <title>Copy page</title>
+                <title>Copy Page</title>
                 <link rel="icon" type="image/x-icon" href="/static/zq-static/favicon.ico" />
                 <link href="/static/zq-static/zq-main.css?t={}" rel="stylesheet" />
             </head>
@@ -144,6 +144,16 @@ class HtmlProcessor:
                 print(img)
 
     def format_code_pres(self):
+
+        # 找到所有的按钮，并删除它们
+        buttons = self.soup.find_all('button')
+        for button in buttons:
+            button.decompose()
+        for li in self.soup.find_all('li'):
+            d = self.soup.new_tag('div')
+            d.string = ' * ' + li.decode_contents()
+            li.replace_with(d)
+
         pres = self.soup.find_all('pre')
         for pre_tag in pres:
             # 获取pre标签的文本内容
@@ -157,16 +167,17 @@ class HtmlProcessor:
             lines = pre_text.splitlines()
 
             # 创建一个新的div标签用于替换pre标签
-            new_div = self.soup.new_tag('pre')
+            pre_new = self.soup.new_tag('div')
 
-            new_div['class'] = pre_tag.get('class')
+            # new_div['class'] = pre_tag.get('class')
+            pre_new['class'] = 'q-code'
             # 将每行文本放入一个单独的div中，并添加到新的div标签中
             for line in lines:
                 line_div = self.soup.new_tag('div')
                 line_div.string = line
-                new_div.append(line_div)
-            pre_tag.replace_with(new_div)
+                pre_new.append(line_div)
+            pre_tag.replace_with(pre_new)
 
-            new_div.insert_before(self.soup.new_tag('br'))
-            new_div.insert_after(self.soup.new_tag('br'))
+            pre_new.insert_before(self.soup.new_tag('br'))
+            pre_new.insert_after(self.soup.new_tag('br'))
             # pre_tag.string = new_div.get_text()
