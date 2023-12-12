@@ -59,21 +59,20 @@ class HtmlProcessor:
 
     def gen_html(self, origin_html):
         html = ""
+        prism = """
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+                <!-- 这里可以添加其他语言的扩展，比如对应语言的 JavaScript 文件 -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
+        """
         html += r"""
         <!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
-                <title>Copy Copy</title>
-                  <!-- 引入 Prism.js 的 CSS 样式 -->
-                <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
-                <link href="/static/zq-css/zq-main.css?t={}" rel="stylesheet" />
-
-                <!-- 引入 Prism.js 的 JavaScript 文件 -->
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
-                <!-- 这里可以添加其他语言的扩展，比如对应语言的 JavaScript 文件 -->
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
+                <title>Copy page</title>
+                <link rel="icon" type="image/x-icon" href="/static/zq-static/favicon.ico" />
+                <link href="/static/zq-static/zq-main.css?t={}" rel="stylesheet" />
             </head>
             <body>
             <div class="zq-main">
