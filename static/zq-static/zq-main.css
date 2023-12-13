@@ -49,6 +49,23 @@ li {
 }
 
 .q-code {
-    background: rgb(233,236,239);
+    background: rgb(233, 236, 239);
     padding: 5px;
+}
+
+/*table*/
+.table {
+    display: table;
+    width: 100%;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    background: rgb(243, 246, 252);
 }

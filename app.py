@@ -23,7 +23,7 @@ def test_show(param):
 @app.route('/table')
 def out_html():
     processor = TableProcessor('file')
-    processor.do()
+    # processor.do()
     content = processor.read_table_file()
     return content
 
@@ -38,7 +38,7 @@ def html():
     content = request.form['data']
     HtmlProcessor.dump_location_from_str(request.form['location'])
     processor = HtmlProcessor('html', content)
-    processor.do()
+    # processor.do()
     return "Data received successfully!"
 
 

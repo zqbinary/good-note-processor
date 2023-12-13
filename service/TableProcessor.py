@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 
 from service.Notification import notify
-
 from service.WebProcessor import WebProcessor
 
 BR = '<div><br></div>'
@@ -106,16 +105,32 @@ class TableProcessor(WebProcessor):
         with open(self.output_file, 'r', encoding='utf-8') as file:
             out_file = file.read()
         self.soup = BeautifulSoup(out_file, 'html.parser')
+        self.prepare_to_format()
         self.format_table_html()
-        self.save_html_html()
-        notify()
+        self.save_table_html()
+        notify('生成table.html')
 
-    def save_html_html(self):
+    def save_table_html(self):
         with open(self.output_table_file, 'w', encoding='utf-8') as file:
             res = str(self.soup)
             file.write(res)
         self.remove_empty_line()
         print("处理后的 HTML 内容已保存到 {} 文件".format(self.output_table_file))
+
+    def prepare_to_format(self):
+        for tbl in self.soup.find_all('table'):
+            table_div = self.soup.new_tag("div", attrs={"class": "table"})
+
+            # 获取原始表格中的行数据并创建相应的<div>元素
+            for row in tbl.find_all('tr'):
+                row_div = self.soup.new_tag("div", attrs={"class": "table-row"})
+                for cell in row.find_all(['td', 'th']):
+                    cell_div = self.soup.new_tag("div", attrs={"class": "table-cell"})
+                    cell_div.string = cell.get_text(strip=True)
+                    row_div.append(cell_div)
+                table_div.append(row_div)
+
+            tbl.replace_with(table_div)
 
 
 if __name__ == '__main__':
