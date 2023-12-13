@@ -65,26 +65,38 @@ class HtmlProcessor:
     def format_table_html(self):
         # 找到所有的 h2 标签
         h2_tags = self.soup.find_all('h2')
-
+        self.process_head()
         # 将每个 h2 标签和其后的内容合并为一块
         for tag in h2_tags:
             contents = []
-            # contents.append(tag)
             next_element = tag.find_next_sibling()
             while next_element and next_element.name != 'h2':
                 if next_element.name:
                     contents.append(next_element)
                 next_element = next_element.find_next_sibling()
+            self.block_to_table(contents, tag)
 
-            # 创建一个新的 <div> 标签，并将 h2 标签和其后的内容放入其中
-            table = self.gen_container()
-            td = table.find('td')
-            for child in contents:
-                td.append(child)
-            tag.insert_after(table)
-            td.insert(0, tag)
+    def process_head(self):
+        contents = []
+        tag = self.soup.body.div.contents[0]
+        if not tag:
+            return
+        next_element = tag.find_next_sibling()
+        while next_element and next_element.name != 'h2':
+            if next_element.name:
+                contents.append(next_element)
+            next_element = next_element.find_next_sibling()
+        self.block_to_table(contents, tag)
 
-            # wrap_tag.replace_with(table)
+    def block_to_table(self, contents, tag):
+        table = self.gen_container()
+        td = table.find('td')
+        for child in contents:
+            td.append(child)
+        tag.insert_after(table)
+        td.insert(0, tag)
+        table2 = self.gen_container()
+        table.insert_before(table2)
 
     def gen_container(self):
         BR = '<div><br></div>'
@@ -199,9 +211,10 @@ class HtmlProcessor:
         buttons = self.soup.find_all('button')
         for button in buttons:
             button.decompose()
+        # todo 里下面可能是html
         for li in self.soup.find_all('li'):
             d = self.soup.new_tag('div')
-            d.string = ' * ' + li.decode_contents()
+            d.string = ' * ' + li.get_text()
             li.replace_with(d)
 
         pres = self.soup.find_all('pre')
