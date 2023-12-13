@@ -11,6 +11,7 @@ from service.Notification import notify
 class HtmlProcessor:
     origin_file = 'templates/origin.html'
     output_file = 'templates/out.html'
+    output_table_file = 'templates/table.html'
     data_file = 'templates/data.json'
     root = ''
 
@@ -53,6 +54,52 @@ class HtmlProcessor:
         self.save_out_html()
         notify()
 
+    def out_html(self):
+        with open(self.output_file, 'r', encoding='utf-8') as file:
+            out_file = file.read()
+        self.soup = BeautifulSoup(out_file, 'html.parser')
+        self.format_table_html()
+        self.save_html_html()
+        notify()
+
+    def format_table_html(self):
+        # 找到所有的 h2 标签
+        h2_tags = self.soup.find_all('h2')
+
+        # 将每个 h2 标签和其后的内容合并为一块
+        for tag in h2_tags:
+            contents = []
+            # contents.append(tag)
+            next_element = tag.find_next_sibling()
+            while next_element and next_element.name != 'h2':
+                if next_element.name:
+                    contents.append(next_element)
+                next_element = next_element.find_next_sibling()
+
+            # 创建一个新的 <div> 标签，并将 h2 标签和其后的内容放入其中
+            table = self.gen_container()
+            td = table.find('td')
+            for child in contents:
+                td.append(child)
+            tag.insert_after(table)
+            td.insert(0, tag)
+
+            # wrap_tag.replace_with(table)
+
+    def gen_container(self):
+        BR = '<div><br></div>'
+        BLOCK_START = '<table style="border-collapse: collapse; min-width: 100%"><colgroup><col style="width: 839px"><col style="width: 413px"></colgroup>'
+        TR_START = '<tr><td style="width: 839px; padding: 8px; border: 1px solid">'
+        TR_END = '</td><td style="width: 413px; padding: 8px; border: 1px solid;"><div><br /></div></td>'
+        BLOCK_END = '</tr></tbody></table>'
+
+        # 创建 <table> 标签并添加其他 HTML 元素内容
+        html_content = BR + BLOCK_START + TR_START + TR_END + BLOCK_END
+        div_tag = self.soup.new_tag('div')
+        # return div_tag
+        div_tag.append(BeautifulSoup(html_content, 'html.parser'))
+        return div_tag
+
     def read_html_file(self):
         with open(self.origin_file, 'r', encoding='utf-8') as file:
             return file.read()
@@ -92,6 +139,13 @@ class HtmlProcessor:
             file.write(res)
         self.remove_empty_line()
         print("处理后的 HTML 内容已保存到 {} 文件".format(self.output_file))
+
+    def save_html_html(self):
+        with open(self.output_table_file, 'w', encoding='utf-8') as file:
+            res = str(self.soup)
+            file.write(res)
+        self.remove_empty_line()
+        print("处理后的 HTML 内容已保存到 {} 文件".format(self.output_table_file))
 
     def remove_empty_line(self):
         with open(self.output_file, 'r', encoding='utf-8') as file:

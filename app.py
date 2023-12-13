@@ -19,6 +19,13 @@ def test_show(param):
     return render_template(f'/tests/{param}/out.html')
 
 
+@app.route('/table')
+def out_html():
+    processor = HtmlProcessor('file')
+    processor.out_html()
+    return render_template('table.html')
+
+
 @app.route('/out')
 def index2():
     return render_template('out.html')
