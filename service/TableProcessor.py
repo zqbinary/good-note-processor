@@ -22,8 +22,8 @@ class TableProcessor(WebProcessor):
     def format_table_html(self):
         # 找到所有的 h2 标签
         h2_tags = self.soup.find_all('h2')
-        self.process_head()
         # todo test
+        self.process_head()
         # return
         # 将每个 h2 标签和其后的内容合并为一块
         zi = 0
@@ -99,7 +99,7 @@ class TableProcessor(WebProcessor):
         table.insert_before(table2)
 
     def gen_container(self):
-        html_content = BR + BLOCK_START + TR_START + TR_END + BLOCK_END
+        html_content = '<br>' + BLOCK_START + TR_START + TR_END + BLOCK_END
         div_tag = self.soup.new_tag('div')
         div_tag.append(BeautifulSoup(html_content, 'html.parser'))
         return div_tag

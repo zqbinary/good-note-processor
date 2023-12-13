@@ -34,6 +34,10 @@ class WebProcessor:
         with open(self.origin_file, 'r', encoding='utf-8') as file:
             return file.read()
 
+    def read_table_file(self):
+        with open(self.output_table_file, 'r', encoding='utf-8') as file:
+            return file.read()
+
     def remove_empty_line(self):
         with open(self.output_file, 'r', encoding='utf-8') as file:
             res = file.read()

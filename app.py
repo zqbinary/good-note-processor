@@ -22,9 +22,10 @@ def test_show(param):
 
 @app.route('/table')
 def out_html():
-    # processor = TableProcessor('file')
-    # processor.do()
-    return render_template('table.html')
+    processor = TableProcessor('file')
+    processor.do()
+    content = processor.read_table_file()
+    return content
 
 
 @app.route('/out')
