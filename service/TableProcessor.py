@@ -96,7 +96,7 @@ class TableProcessor(WebProcessor):
         table.insert_before(table2)
 
     def gen_container(self):
-        html_content = '<br>' + BLOCK_START + TR_START + TR_END + BLOCK_END
+        html_content = '\n' + BLOCK_START + TR_START + TR_END + BLOCK_END
         div_tag = self.soup.new_tag('div')
         div_tag.append(BeautifulSoup(html_content, 'html.parser'))
         return div_tag

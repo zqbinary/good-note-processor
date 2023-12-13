@@ -1,9 +1,10 @@
+import os
 import re
 import time
 
-from bs4 import BeautifulSoup
 import requests
-import os
+from bs4 import BeautifulSoup
+
 from service.Notification import notify
 from service.WebProcessor import WebProcessor
 
@@ -80,6 +81,7 @@ class HtmlProcessor(WebProcessor):
             response = requests.get(img_url)
             if response.status_code > 400:
                 print(f"下载失败，图片 {img_url}，状态码:", response.status_code)
+            # todo image类型
             filename = self.get_img_filename(idx, img_url, response.headers.get('Content-Type'))
             filename_download = os.path.join(self.root, 'static', filename)
             with open(filename_download, "wb") as file:
@@ -91,6 +93,7 @@ class HtmlProcessor(WebProcessor):
     @classmethod
     def get_img_filename(cls, idx, image_url, content_type):
         # 获取 Content-Type 头部信息
+        ['gif', 'jpeg', 'png', 'webp']
         image_format = 'png'
         if content_type:
             image_format = content_type.split('/')[-1]  # 获取 Content-Type 中的格式部分
