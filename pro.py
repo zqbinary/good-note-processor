@@ -1,5 +1,5 @@
-from service.HtmlProcessor import HtmlProcessor
+from service.TableProcessor import TableProcessor
 
-processor = HtmlProcessor('file')
+processor = TableProcessor('file')
+# processor.do()
 processor.do()
-# processor.out_html()

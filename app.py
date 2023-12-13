@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from flask_cors import CORS
 
 from service.HtmlProcessor import HtmlProcessor
+from service.TableProcessor import TableProcessor
 
 app = Flask(__name__)
 CORS(app)
@@ -21,8 +22,8 @@ def test_show(param):
 
 @app.route('/table')
 def out_html():
-    processor = HtmlProcessor('file')
-    processor.out_html()
+    # processor = TableProcessor('file')
+    # processor.do()
     return render_template('table.html')
 
 

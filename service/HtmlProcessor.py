@@ -1,4 +1,3 @@
-import json
 import re
 import time
 
@@ -6,43 +5,18 @@ from bs4 import BeautifulSoup
 import requests
 import os
 from service.Notification import notify
+from service.WebProcessor import WebProcessor
 
 
-class HtmlProcessor:
-    origin_file = 'templates/origin.html'
-    output_file = 'templates/out.html'
-    output_table_file = 'templates/table.html'
-    data_file = 'templates/data.json'
-    root = ''
+class HtmlProcessor(WebProcessor):
 
-    def __init__(self, type='file', origin_html=''):
-        if type == 'file':
+    def __init__(self, kind='file', origin_html=''):
+        if kind == 'file':
             self.html_content = self.read_html_file()
-        if type == 'html':
+        if kind == 'html':
             self.html_content = self.gen_html(origin_html)
             self.save_origin_html()
         self.location = self.load_location()
-
-    @classmethod
-    def set_root(cls, f):
-        cls.root = f
-
-    @classmethod
-    def set_file_dir(cls, data_file, origin_file, output_file):
-        cls.data_file = data_file
-        cls.origin_file = origin_file
-        cls.output_file = output_file
-
-    @classmethod
-    def load_location(cls):
-        with open(cls.data_file, 'r') as file:
-            return json.load(file)
-
-    @classmethod
-    def dump_location_from_str(cls, string):
-        with open(cls.data_file, 'w', encoding='utf-8') as file:
-            file.write(string)
-        pass
 
     def do(self, is_download_img=True):
         self.soup = BeautifulSoup(self.html_content, 'html.parser')
@@ -53,68 +27,6 @@ class HtmlProcessor:
 
         self.save_out_html()
         notify()
-
-    def out_html(self):
-        with open(self.output_file, 'r', encoding='utf-8') as file:
-            out_file = file.read()
-        self.soup = BeautifulSoup(out_file, 'html.parser')
-        self.format_table_html()
-        self.save_html_html()
-        notify()
-
-    def format_table_html(self):
-        # 找到所有的 h2 标签
-        h2_tags = self.soup.find_all('h2')
-        self.process_head()
-        # 将每个 h2 标签和其后的内容合并为一块
-        for tag in h2_tags:
-            contents = []
-            next_element = tag.find_next_sibling()
-            while next_element and next_element.name != 'h2':
-                if next_element.name:
-                    contents.append(next_element)
-                next_element = next_element.find_next_sibling()
-            self.block_to_table(contents, tag)
-
-    def process_head(self):
-        contents = []
-        tag = self.soup.body.div.contents[0]
-        if not tag:
-            return
-        next_element = tag.find_next_sibling()
-        while next_element and next_element.name != 'h2':
-            if next_element.name:
-                contents.append(next_element)
-            next_element = next_element.find_next_sibling()
-        self.block_to_table(contents, tag)
-
-    def block_to_table(self, contents, tag):
-        table = self.gen_container()
-        td = table.find('td')
-        for child in contents:
-            td.append(child)
-        tag.insert_after(table)
-        td.insert(0, tag)
-        table2 = self.gen_container()
-        table.insert_before(table2)
-
-    def gen_container(self):
-        BR = '<div><br></div>'
-        BLOCK_START = '<table style="border-collapse: collapse; min-width: 100%"><colgroup><col style="width: 839px"><col style="width: 413px"></colgroup>'
-        TR_START = '<tr><td style="width: 839px; padding: 8px; border: 1px solid">'
-        TR_END = '</td><td style="width: 413px; padding: 8px; border: 1px solid;"><div><br /></div></td>'
-        BLOCK_END = '</tr></tbody></table>'
-
-        # 创建 <table> 标签并添加其他 HTML 元素内容
-        html_content = BR + BLOCK_START + TR_START + TR_END + BLOCK_END
-        div_tag = self.soup.new_tag('div')
-        # return div_tag
-        div_tag.append(BeautifulSoup(html_content, 'html.parser'))
-        return div_tag
-
-    def read_html_file(self):
-        with open(self.origin_file, 'r', encoding='utf-8') as file:
-            return file.read()
 
     def gen_html(self, origin_html):
         html = ""
@@ -158,14 +70,6 @@ class HtmlProcessor:
             file.write(res)
         self.remove_empty_line()
         print("处理后的 HTML 内容已保存到 {} 文件".format(self.output_table_file))
-
-    def remove_empty_line(self):
-        with open(self.output_file, 'r', encoding='utf-8') as file:
-            res = file.read()
-            with open(self.output_file, 'w', encoding='utf-8') as f2:
-                res = re.sub(r'\n\n', r'\n', res)
-                res = re.sub(r'\n\n', r'\n', res)
-                f2.write(res)
 
     def download_images(self):
         images = self.soup.find_all('img')
