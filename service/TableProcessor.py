@@ -92,9 +92,7 @@ class TableProcessor(WebProcessor):
                 td.append(child)
         tag.insert_after(table)
         # self.soup.div.append(table)
-
         table.find('td').insert(0, tag)
-        td.insert(0, tag)
         table2 = self.gen_container()
         table.insert_before(table2)
 
