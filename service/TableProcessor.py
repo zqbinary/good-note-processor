@@ -96,7 +96,7 @@ class TableProcessor(WebProcessor):
         table.insert_before(table2)
 
     def gen_container(self):
-        html_content = '\n' + BLOCK_START + TR_START + TR_END + BLOCK_END
+        html_content = '<br>' + BLOCK_START + TR_START + TR_END + BLOCK_END
         div_tag = self.soup.new_tag('div')
         div_tag.append(BeautifulSoup(html_content, 'html.parser'))
         return div_tag
@@ -119,13 +119,13 @@ class TableProcessor(WebProcessor):
 
     def prepare_to_format(self):
         for tbl in self.soup.find_all('table'):
-            table_div = self.soup.new_tag("div", attrs={"class": "table"})
+            table_div = self.soup.new_tag("div", attrs={"class": "q-table"})
 
             # 获取原始表格中的行数据并创建相应的<div>元素
             for row in tbl.find_all('tr'):
-                row_div = self.soup.new_tag("div", attrs={"class": "table-row"})
+                row_div = self.soup.new_tag("div", attrs={"class": "q-table-row"})
                 for cell in row.find_all(['td', 'th']):
-                    cell_div = self.soup.new_tag("div", attrs={"class": "table-cell"})
+                    cell_div = self.soup.new_tag("div", attrs={"class": "q-table-cell"})
                     cell_div.string = cell.get_text(strip=True)
                     row_div.append(cell_div)
                 table_div.append(row_div)

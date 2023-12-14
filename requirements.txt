@@ -1,9 +1,7 @@
 pyperclip
 Flask
 Flask-CORS
-keyboard
 beautifulsoup4
 requests
 win10toast
-zhipuai
 python-dotenv

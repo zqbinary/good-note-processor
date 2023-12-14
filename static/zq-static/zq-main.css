@@ -54,16 +54,16 @@ li {
 }
 
 /*table*/
-.table {
+.q-table {
     display: table;
     width: 100%;
 }
 
-.table-row {
+.q-table-row {
     display: table-row;
 }
 
-.table-cell {
+.q-table-cell {
     display: table-cell;
     border-top: 1px solid #000;
     border-left: 1px solid #000;
