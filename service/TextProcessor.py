@@ -1,6 +1,13 @@
-from collections import Counter
-import pyperclip
+import os
 import statistics
+
+import pyperclip
+import zhipuai
+from dotenv import load_dotenv
+
+from service.Notification import notify
+
+load_dotenv()
 
 
 class TextProcessor:
@@ -16,8 +23,26 @@ class TextProcessor:
             text = text
         self.text = text.strip()
 
-    def action(self):
-        # 示例文本
+    def action(self, mode='man'):
+        processed_text = ''
+        if mode == 'man':
+            processed_text = self.man_process()
+        if mode == 'ai':
+            processed_text = self.ai_process()
+        if not processed_text:
+            return
+        return self.out(processed_text)
+
+    def out(self, processed_text):
+        if 'clipboard' == self.typ:
+            print('copy!')
+            pyperclip.copy(processed_text)
+        print("<------output------------")
+        print(processed_text)
+        print("------output------------>")
+        notify('clipboard process success')
+
+    def man_process(self):
         chinese_counts = self.count_char()
         print("每行中文字数统计：", chinese_counts)
         most_common = self.most_common_count(chinese_counts)
@@ -25,10 +50,35 @@ class TextProcessor:
         processed_text = self.merge_lines_with_difference(most_common)
         print("<------------------")
         print(processed_text)
-        print("------------------>")
-        if 'clipboard' == self.typ:
-            print('copy!')
-            pyperclip.copy(processed_text)
+        return processed_text
+
+    def ai_process(self):
+        content_pre = """
+              这里是一段ocr识别的内容，我需要你帮我修正其中的错别字，去掉多余的换行，增加可阅读性。
+              仅仅输出处理结果即可。文本如下：
+               """
+        zhipuai.api_key = os.getenv('zhipuai_api_key')
+        try:
+            response = zhipuai.model_api.sse_invoke(
+                model="chatglm_turbo",
+                prompt=[{
+                    "role": "user",
+                    "content": content_pre + self.text
+                }],
+                temperature=0,
+                incremental=False
+            )
+        except Exception as e:
+            print('ai connected error:', str(e))
+            exit('500')
+        res = ''
+        try:
+            for event in response.events():
+                if event.event == "finish":
+                    res = event.data
+        except Exception as e:
+            print(e)
+        return res
 
     def merge_lines_with_difference(self, line_count_computed):
         # 频率最高的不足10

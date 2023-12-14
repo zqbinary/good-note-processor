@@ -164,3 +164,5 @@ static/*
 !static/zq-static/
 !static/zq-static/favicon.ico
 .idea
+#config
+.env
