@@ -8,7 +8,7 @@ BLOCK_START = '<table style="border-collapse: collapse; min-width: 100%"><colgro
 TR_START = '<tr><td style="width: 839px; padding: 8px; border: 1px solid">'
 TR_END = '</td><td style="width: 413px; padding: 8px; border: 1px solid;"><div><br /></div></td>'
 BLOCK_END = '</tr></tbody></table>'
-SEPERATOR = 'hr'
+SEPERATOR = 'q-hr'
 
 
 class TableProcessor(WebProcessor):
@@ -37,7 +37,18 @@ class TableProcessor(WebProcessor):
                 if ele.name:
                     zi_cnt = len(str(ele.get_text()))
                     zi += zi_cnt
-                    if zi > ZI_COUNT_SEPERATOR and zi_last > ZI_COUNT_SEPERATOR_LIMIT:
+                    seperator_flag = True
+                    seperator_next_h_flag = False
+                    ele_next = ele.find_next_sibling()
+                    if ele_next and 'name' in ele_next and ele_next.name == 'br':
+                        ele_next = ele_next.find_next_sibling()
+                    # 如果下一段是h,就换换行
+                    if ele_next and ele_next.name and ele_next.name.startswith('h'):
+                        seperator_next_h_flag = True
+                    # 如果当行字少，就不换行
+                    if zi_cnt < ZI_COUNT_SEPERATOR_LIMIT:
+                        seperator_flag = False
+                    if (zi > ZI_COUNT_SEPERATOR or seperator_next_h_flag) and seperator_flag:
                         contents.append(self.soup.new_tag(SEPERATOR))
                         zi = 0
                     contents.append(ele)
@@ -82,8 +93,8 @@ class TableProcessor(WebProcessor):
         td = table.find('td')
         for child in contents:
             if child.name == SEPERATOR:
-                td.append(self.soup.new_tag('br'))
-                tr_str = TR_START + TR_END + '</tr>'
+                # td.append(self.soup.new_tag('br'))
+                tr_str = TR_START + '<br>' + TR_END + '</tr>'
                 td.parent.parent.append(BeautifulSoup(tr_str, 'html.parser'))
                 td = td.parent.find_next_sibling().find('td')
                 continue
@@ -94,6 +105,7 @@ class TableProcessor(WebProcessor):
         table.find('td').insert(0, tag)
         table2 = self.gen_container()
         table.insert_before(table2)
+        table.unwrap()
 
     def gen_container(self):
         html_content = '<br>' + BLOCK_START + TR_START + TR_END + BLOCK_END

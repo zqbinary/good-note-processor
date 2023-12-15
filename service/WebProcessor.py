@@ -42,8 +42,7 @@ class WebProcessor:
         with open(self.output_file, 'r', encoding='utf-8') as file:
             res = file.read()
             with open(self.output_file, 'w', encoding='utf-8') as f2:
-                res = re.sub(r'\n\n', r'\n', res)
-                res = re.sub(r'\n\n', r'\n', res)
+                res = re.sub(r'\n+', r'\n', res)
                 f2.write(res)
 
 

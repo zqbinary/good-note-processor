@@ -1,6 +1,7 @@
 import os
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 import requests
 from bs4 import BeautifulSoup
@@ -72,23 +73,33 @@ class HtmlProcessor(WebProcessor):
         self.remove_empty_line()
         print("处理后的 HTML 内容已保存到 {} 文件".format(self.output_table_file))
 
+    def download_image(self, idx, img):
+        img_url = img.get('src')
+
+        try:
+            response = requests.get(img_url)
+        except Exception as e:
+            print('download img error', str(e))
+            return
+
+        if response.status_code > 400:
+            print(f"下载失败，图片 {img_url}，状态码:", response.status_code)
+            return
+            # todo image类型
+        filename = self.get_img_filename(idx, img_url, response.headers.get('Content-Type'))
+        filename_download = os.path.join(self.root, 'static', filename)
+        with open(filename_download, "wb") as file:
+            file.write(response.content)
+        print(f"图片 {img_url} 已成功下载到本地")
+
+        img['src'] = '/static/' + filename
+
     def download_images(self):
         images = self.soup.find_all('img')
-
-        for idx, img in enumerate(images):
-            img_url = img.get('src')
-
-            response = requests.get(img_url)
-            if response.status_code > 400:
-                print(f"下载失败，图片 {img_url}，状态码:", response.status_code)
-            # todo image类型
-            filename = self.get_img_filename(idx, img_url, response.headers.get('Content-Type'))
-            filename_download = os.path.join(self.root, 'static', filename)
-            with open(filename_download, "wb") as file:
-                file.write(response.content)
-            print(f"图片 {img_url} 已成功下载到本地")
-
-            img['src'] = '/static/' + filename
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            futures = [executor.submit(self.download_image, idx, img) for idx, img in enumerate(images)]
+            for future in futures:
+                future.result()
 
     @classmethod
     def get_img_filename(cls, idx, image_url, content_type):

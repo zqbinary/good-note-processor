@@ -15,8 +15,8 @@ localhost:7826/out，就可以看到结果
 | CSDN | blog.csdn.net    | [https://blog.csdn.net/csdnnews/article/details/134566191?spm=1000.2115.3001.5926](https://blog.csdn.net/csdnnews/article/details/134566191?spm=1000.2115.3001.5926) |
 | 思否   | segmentfault.com | https://segmentfault.com/a/1190000044421775                                                                                                                          |
 | 掘金   | juejin.cn        | https://juejin.cn/post/6909379124679311368                                                                                                                           |
-
-ect.: 腾讯云,51cto
+## 适配问题
+https://juejin.cn/post/7294441582983954468  python复制代码
 
 ## 支持不同的code preview
 
@@ -38,3 +38,5 @@ ect.: 腾讯云,51cto
 - [ ] 代码格式化,彩色提示
 - [x] 处理后 消息提醒
 - [ ] 隔一段就加个br 
+- [ ] 如果下一个是h,就先不分tr
+
