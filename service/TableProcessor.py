@@ -15,7 +15,7 @@ class TableProcessor(WebProcessor):
     def __init__(self, kind='file', origin_html=''):
         self.soup = None
         if kind == 'file':
-            self.html_content = self.read_html_file()
+            self.html_content = self.read_origin_file()
         self.location = self.load_location()
 
     def format_table_html(self):

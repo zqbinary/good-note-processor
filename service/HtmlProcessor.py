@@ -14,7 +14,7 @@ class HtmlProcessor(WebProcessor):
 
     def __init__(self, kind='file', origin_html=''):
         if kind == 'file':
-            self.html_content = self.read_html_file()
+            self.html_content = self.read_origin_file()
         if kind == 'html':
             self.html_content = self.gen_html(origin_html)
             self.save_origin_html()

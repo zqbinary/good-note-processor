@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 from flask_cors import CORS
 
 from service.HtmlProcessor import HtmlProcessor
@@ -12,7 +12,8 @@ app.jinja_env.auto_reload = True
 
 @app.route('/')
 def index():
-    return render_template('out.html')
+    return redirect(url_for('out'))
+
 
 
 @app.route('/test/<param>')
@@ -29,8 +30,10 @@ def out_html():
 
 
 @app.route('/out')
-def index2():
-    return render_template('out.html')
+def out():
+    processor = TableProcessor('file')
+    content = processor.read_out_file()
+    return content
 
 
 @app.route('/html', methods=['POST'])

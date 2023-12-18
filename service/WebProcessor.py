@@ -30,8 +30,12 @@ class WebProcessor:
             file.write(string)
         pass
 
-    def read_html_file(self):
+    def read_origin_file(self):
         with open(self.origin_file, 'r', encoding='utf-8') as file:
+            return file.read()
+
+    def read_out_file(self):
+        with open(self.output_file, 'r', encoding='utf-8') as file:
             return file.read()
 
     def read_table_file(self):
