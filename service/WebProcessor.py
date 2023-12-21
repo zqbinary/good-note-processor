@@ -49,6 +49,14 @@ class WebProcessor:
                 res = re.sub(r'\n+', r'\n', res)
                 f2.write(res)
 
+    @staticmethod
+    def remove_eles_by_selectors(selector_list, soup):
+        for selector in selector_list:
+            target = soup.select(selector)
+            if len(target):
+                target[0].decompose()
+
 
 if __name__ == '__main__':
     pass
+

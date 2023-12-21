@@ -17,11 +17,10 @@ class TableProcessor(WebProcessor):
         if kind == 'file':
             self.html_content = self.read_origin_file()
         self.location = self.load_location()
+        self.seperator_hn = 'h2'
 
     def format_table_html(self):
-        # 找到所有的 h2 标签
-        h2_tags = self.soup.find_all('h2')
-        # todo test
+        hn_tags = self.soup.find_all('h2')
         self.process_head()
         # return
         # 将每个 h2 标签和其后的内容合并为一块
@@ -29,16 +28,15 @@ class TableProcessor(WebProcessor):
         ZI_COUNT_SEPERATOR = 300
         ZI_COUNT_SEPERATOR_LIMIT = 10
         ZI_LINE_SEPERATOR = 10
-        for tag in h2_tags:
+        for tag in hn_tags:
             contents = []
             ele = tag.find_next_sibling()
-            zi_last = 0
             while ele and ele.name != 'h2':
+                seperator_flag = True
+                seperator_next_h_flag = False
                 if ele.name:
                     zi_cnt = len(str(ele.get_text()))
                     zi += zi_cnt
-                    seperator_flag = True
-                    seperator_next_h_flag = False
                     ele_next = ele.find_next_sibling()
                     if ele_next and 'name' in ele_next and ele_next.name == 'br':
                         ele_next = ele_next.find_next_sibling()
@@ -48,11 +46,10 @@ class TableProcessor(WebProcessor):
                     # 如果当行字少，就不换行
                     if zi_cnt < ZI_COUNT_SEPERATOR_LIMIT:
                         seperator_flag = False
+                    contents.append(ele)
                     if (zi > ZI_COUNT_SEPERATOR or seperator_next_h_flag) and seperator_flag:
                         contents.append(self.soup.new_tag(SEPERATOR))
                         zi = 0
-                    contents.append(ele)
-                zi_last = zi_cnt
                 ele = ele.find_next_sibling()
             self.block_to_table(contents, tag)
 
@@ -93,7 +90,7 @@ class TableProcessor(WebProcessor):
         td = table.find('td')
         for child in contents:
             if child.name == SEPERATOR:
-                # td.append(self.soup.new_tag('br'))
+                td.append(self.soup.new_tag('br'))
                 tr_str = TR_START + '<br>' + TR_END + '</tr>'
                 td.parent.parent.append(BeautifulSoup(tr_str, 'html.parser'))
                 td = td.parent.find_next_sibling().find('td')
@@ -130,6 +127,9 @@ class TableProcessor(WebProcessor):
         print("处理后的 HTML 内容已保存到 {} 文件".format(self.output_table_file))
 
     def prepare_to_format(self):
+        for doc in self.soup.find_all('h2'):
+            if doc.parent and doc.parent.name and doc.parent.name != '':
+                pass
         for tbl in self.soup.find_all('table'):
             table_div = self.soup.new_tag("div", attrs={"class": "q-table"})
 

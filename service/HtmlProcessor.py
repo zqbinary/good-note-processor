@@ -6,6 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 import requests
 from bs4 import BeautifulSoup
 
+from service.HtmlRuleStrategy import StrategyFactory
 from service.Notification import notify
 from service.WebProcessor import WebProcessor
 
@@ -114,6 +115,7 @@ class HtmlProcessor(WebProcessor):
     def format_html(self):
         self.format_imgs()
         self.format_code_pres()
+        self.rule_format()
 
     def format_imgs(self):
         images = self.soup.find_all('img')
@@ -121,7 +123,6 @@ class HtmlProcessor(WebProcessor):
             img_url = img.get('src')
             if img_url.startswith('/'):
                 img['src'] = self.location['origin'] + img_url
-                print(img)
 
     def format_code_pres(self):
 
@@ -161,3 +162,8 @@ class HtmlProcessor(WebProcessor):
             pre_new.insert_before(self.soup.new_tag('br'))
             pre_new.insert_after(self.soup.new_tag('br'))
             # pre_tag.string = new_div.get_text()
+
+    def rule_format(self):
+        strategy = StrategyFactory().get_strategy(self.location['host'], self.soup)
+        if strategy:
+            strategy.apply_rule(self.location)
