@@ -130,12 +130,12 @@ class HtmlProcessor(WebProcessor):
         buttons = self.soup.find_all('button')
         for button in buttons:
             button.decompose()
-        # todo 里下面可能是html
+        # li
         for li in self.soup.find_all('li'):
             d = self.soup.new_tag('div')
-            d.string = ' * ' + li.get_text()
-            li.replace_with(d)
-
+            d.insert(0, " * ")
+            li.wrap(d)
+            li.unwrap()
         pres = self.soup.find_all('pre')
         for pre_tag in pres:
             # 获取pre标签的文本内容
