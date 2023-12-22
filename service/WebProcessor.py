@@ -21,7 +21,7 @@ class WebProcessor:
 
     @classmethod
     def load_location(cls):
-        with open(cls.data_file, 'r') as file:
+        with open(cls.data_file, 'r', encoding='utf-8') as file:
             return json.load(file)
 
     @classmethod
@@ -59,4 +59,3 @@ class WebProcessor:
 
 if __name__ == '__main__':
     pass
-

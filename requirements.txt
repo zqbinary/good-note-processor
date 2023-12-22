@@ -4,4 +4,3 @@ Flask-CORS
 beautifulsoup4
 requests
 win10toast
-python-dotenv

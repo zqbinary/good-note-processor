@@ -72,6 +72,13 @@ class TableProcessor(WebProcessor):
         return contents
 
     def pre_to_table(self, contents, tag):
+        # meta
+        table_meta = self.gen_container()
+        a = self.soup.new_tag('a', href=self.location['href'], target='_blank')
+        a.string = self.location['title']
+        table_meta.find('td').find_next_sibling().insert(0, a)
+        self.soup.div.insert(0, table_meta)
+        # header
         table = self.gen_container()
         td = table.find('td')
         for child in contents:
@@ -83,7 +90,7 @@ class TableProcessor(WebProcessor):
                 continue
             else:
                 td.append(child)
-        self.soup.div.insert(0, table)
+        self.soup.div.insert(1, table)
 
     def block_to_table(self, contents, tag):
         table = self.gen_container()
