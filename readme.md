@@ -1,6 +1,13 @@
 # 介绍
 我的笔记工具是印象笔记，这几年想拷贝的内容真的越来越难了。写一个处理工具，用来加强复制。
 
+## 启动
+### 本地启动：
+python -m flask --app app.py run --host=0.0.0.0 --port=7826
+
+### docker
+:正式： docker-compose up -d
+
 ## 网页图片，内容，格式处理
 
 前端是chrome扩展插件，将选中的html 发送给请求给后端flask 处理  

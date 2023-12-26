@@ -1,10 +1,9 @@
-from win10toast import ToastNotifier
-
-
 def notify(msg='ok'):
-    toaster = ToastNotifier()
     try:
+        from win10toast import ToastNotifier
+        toaster = ToastNotifier()
         toaster.show_toast("copy-copy", msg, duration=2)
-    except TypeError:
-        pass
-
+    except TypeError as e:
+        print('notify fail', str(e))
+    except Exception as e:
+        print('notify fail e', str(e))

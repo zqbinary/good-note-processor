@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  good-note-processor:
+    container_name: good-note-processor
+    build: .
+    ports:
+      - "7826:7826"

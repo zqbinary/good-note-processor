@@ -5,7 +5,6 @@ WORKDIR /app
 #复制requirements.txt
 COPY requirements.txt requirements.txt
 #安装依赖包
-#RUN pip install -r requirements.txt
 RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 #复制当前目录下的内容到docker中

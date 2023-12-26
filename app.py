@@ -15,7 +15,6 @@ def index():
     return redirect(url_for('out'))
 
 
-
 @app.route('/test/<param>')
 def test_show(param):
     return render_template(f'/tests/{param}/out.html')
@@ -55,4 +54,4 @@ def add_header(response):
 
 
 if __name__ == '__main__':
-    app.run(port=7826, debug=True)
+    app.run()

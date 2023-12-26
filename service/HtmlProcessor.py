@@ -132,7 +132,7 @@ class HtmlProcessor(WebProcessor):
             button.decompose()
         # li
         for li in self.soup.find_all('li'):
-            d = self.soup.new_tag('div')
+            d = self.soup.new_tag('eiv')
             if li.find():
                 li.find().insert(0, " * ")
             else:
