@@ -29,7 +29,7 @@ class HtmlProcessor(WebProcessor):
             self.save_origin_html()
 
         self.save_out_html()
-        notify('生成out.html')
+        # notify('生成out.html')
 
     def gen_html(self, origin_html):
         html = ""
