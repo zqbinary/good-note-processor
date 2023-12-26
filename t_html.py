@@ -1,4 +1,3 @@
-# from service.TableProcessor import TableProcessor as Processor
 from service.HtmlProcessor import HtmlProcessor as Processor
 
 

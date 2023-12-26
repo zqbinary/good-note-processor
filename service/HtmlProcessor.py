@@ -133,7 +133,10 @@ class HtmlProcessor(WebProcessor):
         # li
         for li in self.soup.find_all('li'):
             d = self.soup.new_tag('div')
-            d.insert(0, " * ")
+            if li.find():
+                li.find().insert(0, " * ")
+            else:
+                li.insert(0, " * ")
             li.wrap(d)
             li.unwrap()
         pres = self.soup.find_all('pre')

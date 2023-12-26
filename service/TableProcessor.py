@@ -124,7 +124,7 @@ class TableProcessor(WebProcessor):
         self.prepare_to_format()
         self.format_table_html()
         self.save_table_html()
-        notify('生成table.html')
+        # notify('生成table.html')
 
     def save_table_html(self):
         with open(self.output_table_file, 'w', encoding='utf-8') as file:
