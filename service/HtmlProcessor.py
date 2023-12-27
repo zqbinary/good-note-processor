@@ -7,7 +7,6 @@ import requests
 from bs4 import BeautifulSoup
 
 from service.HtmlRuleStrategy import StrategyFactory
-from service.Notification import notify
 from service.WebProcessor import WebProcessor
 
 
@@ -132,13 +131,13 @@ class HtmlProcessor(WebProcessor):
             button.decompose()
         # li
         for li in self.soup.find_all('li'):
-            d = self.soup.new_tag('eiv')
+            d = self.soup.new_tag('div')
             if li.find():
                 li.find().insert(0, " * ")
             else:
                 li.insert(0, " * ")
             li.wrap(d)
-            li.unwrap()
+            # li.unwrap()
         pres = self.soup.find_all('pre')
         for pre_tag in pres:
             # 获取pre标签的文本内容
