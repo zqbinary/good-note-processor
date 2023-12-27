@@ -15,6 +15,11 @@ def index():
     return redirect(url_for('out'))
 
 
+@app.route('/tt')
+def tt():
+    return 'tt'
+
+
 @app.route('/test/<param>')
 def test_show(param):
     return render_template(f'/tests/{param}/out.html')
