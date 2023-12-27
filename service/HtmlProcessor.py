@@ -137,7 +137,7 @@ class HtmlProcessor(WebProcessor):
             else:
                 li.insert(0, " * ")
             li.wrap(d)
-            # li.unwrap()
+            li.unwrap()
         pres = self.soup.find_all('pre')
         for pre_tag in pres:
             # 获取pre标签的文本内容
