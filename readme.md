@@ -6,7 +6,7 @@
 python -m flask --app app.py run --host=0.0.0.0 --port=7826
 
 ### docker
-:正式： docker-compose up -d
+正式： docker-compose up -d
 
 ## 网页图片，内容，格式处理
 
