@@ -4,5 +4,7 @@ services:
   good-note-processor:
     container_name: good-note-processor
     build: .
+    volumes:
+      - ./:/app
     ports:
       - "7826:7826"
