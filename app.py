@@ -17,7 +17,7 @@ def index():
 
 @app.route('/tt')
 def tt():
-    return 'tt1'
+    return 't3'
 
 
 @app.route('/test/<param>')
