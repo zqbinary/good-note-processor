@@ -13,6 +13,7 @@ from service.WebProcessor import WebProcessor
 class HtmlProcessor(WebProcessor):
 
     def __init__(self, kind='file', origin_html=''):
+        self.soup = None
         if kind == 'file':
             self.html_content = self.read_origin_file()
         if kind == 'html':
@@ -140,13 +141,13 @@ class HtmlProcessor(WebProcessor):
             li.unwrap()
         pres = self.soup.find_all('pre')
         for pre_tag in pres:
-            # 获取pre标签的文本内容
             pre_text = pre_tag.get_text()
-            pre_text_with_nbsp = re.sub(r'^( +)'
-                                        , lambda match: '\u00A0' * len(match.group(1))
-                                        , pre_text
-                                        , flags=re.MULTILINE)
-            pre_text = pre_text_with_nbsp
+            pre_text = pre_text.replace('\t', '\u00A0\u00A0\u00A0\u00A0')
+            pre_text = re.sub(r'^( +)'
+                              , lambda match: '\u00A0' * len(match.group(1))
+                              , pre_text
+                              , flags=re.MULTILINE)
+
             # 按行分割文本内容
             lines = pre_text.splitlines()
 
