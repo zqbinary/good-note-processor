@@ -130,14 +130,21 @@ class HtmlProcessor(WebProcessor):
         buttons = self.soup.find_all('button')
         for button in buttons:
             button.decompose()
+        # 去掉line
+        # divs = self.soup.select('.pre-numbering')
+        # for div in divs:
+        #     div.decompose()
         # li
         for li in self.soup.find_all('li'):
             d = self.soup.new_tag('div')
+            """
             if li.find():
                 li.find().insert(0, " * ")
             else:
                 li.insert(0, " * ")
+            """
             li.wrap(d)
+            li.insert(0, " * ")
             li.unwrap()
         pres = self.soup.find_all('pre')
         for pre_tag in pres:
