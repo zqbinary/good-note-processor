@@ -38,7 +38,9 @@ li {
     list-style-type: none;
     text-align: left;
 }
-
+ul p {
+    display: inline-block;
+}
 .line-numbers-rows {
     display: none;
 }

@@ -125,36 +125,31 @@ class HtmlProcessor(WebProcessor):
                 img['src'] = self.location['origin'] + img_url
 
     def format_code_pres(self):
-
-        # 找到所有的按钮，并删除它们
-        buttons = self.soup.find_all('button')
-        for button in buttons:
-            button.decompose()
-        # 去掉line
-        # divs = self.soup.select('.pre-numbering')
-        # for div in divs:
-        #     div.decompose()
-        # li
+        remove_selector = [
+            '.pre-numbering',
+            'button'
+        ]
+        WebProcessor.remove_eles_by_selectors(remove_selector, self.soup)
         for li in self.soup.find_all('li'):
             d = self.soup.new_tag('div')
-            """
-            if li.find():
+            li.wrap(d)
+            # if li 下只有一个tag
+            if len(li.contents) == 1 and li.find():
                 li.find().insert(0, " * ")
             else:
                 li.insert(0, " * ")
-            """
-            li.wrap(d)
-            li.insert(0, " * ")
             li.unwrap()
         pres = self.soup.find_all('pre')
         for pre_tag in pres:
             pre_text = pre_tag.get_text()
+            pre_text = pre_text.replace(' ', '\u00A0')
             pre_text = pre_text.replace('\t', '\u00A0\u00A0\u00A0\u00A0')
+            """
             pre_text = re.sub(r'^( +)'
                               , lambda match: '\u00A0' * len(match.group(1))
                               , pre_text
                               , flags=re.MULTILINE)
-
+"""
             # 按行分割文本内容
             lines = pre_text.splitlines()
 

@@ -52,9 +52,8 @@ class WebProcessor:
     @staticmethod
     def remove_eles_by_selectors(selector_list, soup):
         for selector in selector_list:
-            target = soup.select(selector)
-            if len(target):
-                target[0].decompose()
+            for element in soup.select(selector):
+                element.decompose()
 
 
 if __name__ == '__main__':
