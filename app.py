@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_cors import CORS
 
 from service.HtmlProcessor import HtmlProcessor
+from service.OutlineProcessor import OutlineProcessor
 from service.TableProcessor import TableProcessor
 
 app = Flask(__name__)
@@ -29,16 +30,22 @@ def test_show(param):
 def out_html():
     processor = TableProcessor('file')
     processor.do()
-    content = processor.read_table_file()
+    content = processor.read_output_from_file()
     return content
 
 
 @app.route('/out')
 def out():
-    processor = TableProcessor('file')
-    content = processor.read_out_file()
+    processor = HtmlProcessor('file')
+    content = processor.read_output_from_file()
     return content
 
+@app.route('/outline')
+def outline():
+    processor = OutlineProcessor('file')
+    # processor.do()
+    content = processor.read_output_from_file()
+    return content
 
 @app.route('/html', methods=['POST'])
 def html():

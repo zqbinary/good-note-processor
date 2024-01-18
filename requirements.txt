@@ -3,4 +3,6 @@ Flask
 Flask-CORS
 beautifulsoup4
 requests
-#win10toast
+langchain
+python-dotenv
+erniebot

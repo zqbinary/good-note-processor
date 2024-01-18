@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
-from service.WebProcessor import WebProcessor
+
+from service.BaseProcessor import BaseProcessor
 
 
 class RuleStrategy(ABC):
@@ -37,7 +38,7 @@ class Lianglianglee(RuleStrategy):
             'div>div>a', 'div>div>hr',
             '.copyright'
         ]
-        WebProcessor.remove_eles_by_selectors(remove_selector, self.soup)
+        BaseProcessor.remove_eles_by_selectors(remove_selector, self.soup)
         for tag in self.soup.find_all('h1'):
             new_tag = self.soup.new_tag('h2')
             new_tag.string = tag.get_text()

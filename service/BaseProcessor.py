@@ -1,13 +1,34 @@
-import json
+from abc import abstractmethod, ABCMeta
 import re
 
+from flask import json
 
-class WebProcessor:
+
+class BaseProcessor(metaclass=ABCMeta):
     origin_file = 'templates/origin.html'
     output_file = 'templates/out.html'
+    outline_file = 'templates/outline.html'
     output_table_file = 'templates/table.html'
     data_file = 'templates/data.json'
     root = ''
+
+    @abstractmethod
+    def do(self):
+        pass
+
+    @abstractmethod
+    def save_to_html(self):
+        pass
+
+    @abstractmethod
+    def read_output_from_file(self):
+        pass
+
+    @staticmethod
+    def remove_eles_by_selectors(selector_list, soup):
+        for selector in selector_list:
+            for element in soup.select(selector):
+                element.decompose()
 
     @classmethod
     def set_root(cls, f):
@@ -34,27 +55,9 @@ class WebProcessor:
         with open(self.origin_file, 'r', encoding='utf-8') as file:
             return file.read()
 
-    def read_out_file(self):
-        with open(self.output_file, 'r', encoding='utf-8') as file:
-            return file.read()
-
-    def read_table_file(self):
-        with open(self.output_table_file, 'r', encoding='utf-8') as file:
-            return file.read()
-
     def remove_empty_line(self):
         with open(self.output_file, 'r', encoding='utf-8') as file:
             res = file.read()
             with open(self.output_file, 'w', encoding='utf-8') as f2:
                 res = re.sub(r'\n+', r'\n', res)
                 f2.write(res)
-
-    @staticmethod
-    def remove_eles_by_selectors(selector_list, soup):
-        for selector in selector_list:
-            for element in soup.select(selector):
-                element.decompose()
-
-
-if __name__ == '__main__':
-    pass
