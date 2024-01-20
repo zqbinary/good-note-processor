@@ -21,7 +21,8 @@ class OutlineProcessor(BaseProcessor):
     def save_to_html(self):
         with open(self.outline_file, 'w', encoding='utf-8') as file:
             # todo sse
-            res = f"<pre>{self.summary}</pr>"
+            # res = f"<pre>{self.summary}</pr>"
+            res = (f'<div style = "white-space: pre-wrap">{self.summary}</div>')
             file.write(res)
 
     def read_output_from_file(self):

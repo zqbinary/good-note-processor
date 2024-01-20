@@ -1,12 +1,11 @@
+import os
+
 import erniebot
 from dotenv import load_dotenv
 from langchain.chains import AnalyzeDocumentChain
+from langchain.chains.summarize import load_summarize_chain
 from langchain.prompts import PromptTemplate
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.chains.summarize import load_summarize_chain
-
-import os
-
 from langchain_community.chat_models import ErnieBotChat
 
 load_dotenv()
@@ -34,11 +33,19 @@ class ErniebotAiService:
 
     def get_summary_from_content(self, title, content):
         template = """
-            你是善于总结归纳的文本助理。我将提供文档内容，你需要提取要点整理文章大纲，生成格式md。
+            你是善于总结归纳的文本助理。我将提供文档内容，你需要提取要点整理文章大纲。
+            要求返回文本格式，要点前面带*，不要用数字。
             如果无法整理就说你无法整理。如果文档标题无意义,比如是一串数字或字母，就忽略标题。
             文档标题：{name}
             文档内容：{ctx}
             """
+        template1 = """
+            你是善于总结归纳的文本助理。我将提供文档内容，你整理出目录，生成格式md。
+            如果无法整理就说你无法整理。如果文档标题无意义,比如是一串数字或字母，就忽略标题。
+            文档标题：{name}
+            文档内容：{ctx}
+            """
+
         prompt = PromptTemplate.from_template(template)
         message = prompt.format(name=title, ctx=content)
         erniebot.api_type = "aistudio"

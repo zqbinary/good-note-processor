@@ -40,12 +40,22 @@ def out():
     content = processor.read_output_from_file()
     return content
 
+
 @app.route('/outline')
 def outline():
     processor = OutlineProcessor('file')
     # processor.do()
     content = processor.read_output_from_file()
     return content
+
+
+@app.route('/outline/gen')
+def outline_gen():
+    processor = OutlineProcessor('file')
+    processor.do()
+    content = processor.read_output_from_file()
+    return content
+
 
 @app.route('/html', methods=['POST'])
 def html():
