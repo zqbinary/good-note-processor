@@ -4,7 +4,8 @@
 ## 启动
 ### 本地启动：
 python -m flask --app app.py run --host=0.0.0.0 --port=7826
-
+### debug
+pycharm 开启debug  
 ### docker
 正式： docker-compose up -d
 

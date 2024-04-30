@@ -6,6 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 import requests
 from bs4 import BeautifulSoup
 
+import settings
 from service.HtmlRuleStrategy import StrategyFactory
 from service.BaseProcessor import BaseProcessor
 
@@ -80,7 +81,7 @@ class HtmlProcessor(BaseProcessor):
         img_url = img.get('src')
 
         try:
-            response = requests.get(img_url)
+            response = requests.get(img_url, proxies=settings.proxies, timeout=10)
         except Exception as e:
             print('download img error', str(e))
             return
