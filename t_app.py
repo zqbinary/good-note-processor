@@ -20,6 +20,6 @@ def t_html():
 
 
 if __name__ == '__main__':
-    t_html()
+    # t_html()
     # t_outline()
-    # t_table()
+    t_table()
