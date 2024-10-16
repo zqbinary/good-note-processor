@@ -11,14 +11,16 @@ body {
     padding: 10px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     margin-top: 10px;
     font-size: 18px;
 }
 
 .zq-main {
     width: 1252px;
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 
 .zq-main img {
@@ -38,15 +40,19 @@ li {
     list-style-type: none;
     text-align: left;
 }
+
 ul p {
     display: inline-block;
 }
+
 .line-numbers-rows {
     display: none;
 }
 
 /*hljs*/
-.pre-numbering, .docsify-copy-code-button, .widget-codetool {
+.pre-numbering,
+.docsify-copy-code-button,
+.widget-codetool {
     display: none !important;
 }
 
@@ -74,4 +80,13 @@ ul p {
     border-top: 1px solid #000;
     border-left: 1px solid #000;
     background: rgb(243, 246, 252);
+}
+
+/* cnblogs */
+.code_img_opened {
+    display: none;
+}
+
+.cnblogs_code_toolbar {
+    display: none;
 }
