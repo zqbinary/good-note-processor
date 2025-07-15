@@ -1,12 +1,11 @@
 import os
-import re
 import time
 from concurrent.futures import ThreadPoolExecutor
 
 import requests
 from bs4 import BeautifulSoup
 
-import settings
+from src import settings
 from service.HtmlRuleStrategy import StrategyFactory
 from service.BaseProcessor import BaseProcessor
 
