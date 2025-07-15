@@ -43,11 +43,13 @@ class Lianglianglee(RuleStrategy):
             '.copyright',
         ]
         BaseProcessor.remove_eles_by_selectors(remove_selector, self.soup)
+        """
         for tag in self.soup.find_all('h1'):
+            continue
             new_tag = self.soup.new_tag('h2')
             new_tag.string = tag.get_text()
             tag.replace_with(new_tag)
-
+        """
         for img in self.soup.find_all('img'):
             img_url = img.get('src')
             if img_url.startswith('assets'):
